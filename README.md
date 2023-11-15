@@ -1,1 +1,41 @@
-# lease builder
+# Lease builder
+
+**FastAPI, Google docs API, PostgreSQL, SQLAlchemy, Alembic, JWT**
+
+## Dependecies
+
+* Docker
+* Docker-compse
+* Poetry
+
+## How to run
+
+Add the environment variables in the `.env` file.
+
+Start **project containers**
+
+```shell
+docker-compose up -d
+```
+
+Start environment
+
+```shell
+poetry shell
+```
+
+Install python dependencies
+
+```shell
+poetry install
+```
+
+Run **alembic** migrations
+
+```shell
+docker-compose run app sh -c "alembic upgrade head"
+```
+
+- The application will run at: **http://localhost:8000**
+- You can see the API documentation at: **http://localhost:8000/docs**
+- The PGAdmin will run at: **http://localhost:5050**
