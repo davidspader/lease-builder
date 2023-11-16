@@ -1,7 +1,7 @@
 from app.schemas.base import CustomBaseModel
 from pydantic import field_validator
 
-class Tempalte(CustomBaseModel):
+class Template(CustomBaseModel):
     id: str
     description: str
 
