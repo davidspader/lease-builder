@@ -9,7 +9,5 @@ class User(Base):
 
 class Template(Base):
     __tablename__ = 'templates'
-    id = Column('id', Integer, primary_key=True, autoincrement=True)
+    id =  Column('id', String, primary_key=True)
     description = Column('description', String, nullable=False, unique=True)
-    document_id =  Column('document_id', String, nullable=False, unique=True)
-    user_id = Column('user_id', ForeignKey('users.id'), nullable=False)
