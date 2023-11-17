@@ -17,7 +17,7 @@ class TemplateUseCases:
         categories = self.db_session.query(TemplateModel).all()
         return categories
     
-    def delete_template(self, id: int):
+    def delete_template(self, id: str):
         template = self.db_session.query(TemplateModel).filter_by(id=id).first()
 
         if not template:
