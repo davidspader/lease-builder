@@ -10,3 +10,7 @@ class TemplateUseCases:
         template_model = TemplateModel(**template.dict())
         self.db_session.add(template_model)
         self.db_session.commit()
+
+    def list_templates(self):
+        categories = self.db_session.query(TemplateModel).all()
+        return categories

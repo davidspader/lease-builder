@@ -20,3 +20,18 @@ def test_add_template_uc(db_session):
 
     db_session.delete(templates_on_db[0])
     db_session.commit()
+
+def test_list_templates(db_session, templates_on_db):
+    uc = TemplateUseCases(db_session)
+
+    templates = uc.list_templates()
+
+    assert len(templates) == 4
+    assert templates[0].id == templates_on_db[0].id
+    assert templates[0].description == templates_on_db[0].description
+    assert templates[1].id == templates_on_db[1].id
+    assert templates[1].description == templates_on_db[1].description
+    assert templates[2].id == templates_on_db[2].id
+    assert templates[2].description == templates_on_db[2].description
+    assert templates[3].id == templates_on_db[3].id
+    assert templates[3].description == templates_on_db[3].description
