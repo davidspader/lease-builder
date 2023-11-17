@@ -2,6 +2,8 @@ import pytest
 from passlib.context import CryptContext
 from app.db.connection import Session
 from app.db.models import User as UserModel
+from app.use_cases.user import UserUseCases
+from app.schemas.user import User
 from app.db.models import Template as TemplateModel
 
 cryptContext = CryptContext(schemes=['sha256_crypt'])
@@ -29,6 +31,16 @@ def user_on_db(db_session):
 
     db_session.delete(user)
     db_session.commit()
+
+@pytest.fixture()
+def authenticated_token(db_session, user_on_db):
+    uc = UserUseCases(db_session=db_session)
+
+    token_data = uc.user_login(user=User(username=user_on_db.username,password='pass#'), expires_in=1)
+
+    headers = {"Authorization": f"Bearer {token_data.access_token}"}
+
+    yield headers
 
 @pytest.fixture()
 def templates_on_db(db_session):
