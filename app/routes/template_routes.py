@@ -1,0 +1,17 @@
+from fastapi import APIRouter, Depends, Response, status
+from sqlalchemy.orm import Session
+from app.use_cases.template import TemplateUseCases
+from app.schemas.template import Template
+from app.routes.deps import get_db_session, auth
+
+router = APIRouter(prefix='/template', tags=['Template'], dependencies=[Depends(auth)])
+
+@router.post('/add', status_code=status.HTTP_201_CREATED, description='Add new template')
+def add_template(
+    template: Template,
+    db_session: Session = Depends(get_db_session)
+):
+    uc = TemplateUseCases(db_session=db_session)
+    uc.add_template(template=template)
+
+    return Response(status_code=status.HTTP_201_CREATED)
