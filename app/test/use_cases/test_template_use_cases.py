@@ -38,7 +38,7 @@ def test_list_templates_uc(db_session, templates_on_db):
     assert templates[3].id == templates_on_db[3].id
     assert templates[3].description == templates_on_db[3].description
 
-def test_delete_template(db_session):
+def test_delete_template_uc(db_session):
     new_template = TemplateModel(id='18XRdOWpOcoCebJhOOpZYGb733-BfIei_N-f58QhLQms', description='template description')
     db_session.add(new_template)
     db_session.commit()
@@ -49,7 +49,7 @@ def test_delete_template(db_session):
     templates = db_session.query(TemplateModel).first()
     assert templates is None
 
-def test_delete_template_non_exists(db_session):
+def test_delete_template_uc_non_exists(db_session):
     uc = TemplateUseCases(db_session)
 
     with pytest.raises(HTTPException):
