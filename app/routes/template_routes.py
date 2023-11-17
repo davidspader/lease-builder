@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 from app.use_cases.template import TemplateUseCases
@@ -15,3 +16,11 @@ def add_template(
     uc.add_template(template=template)
 
     return Response(status_code=status.HTTP_201_CREATED)
+
+@router.get('/list', response_model=List[Template], description='List all templates')
+def list_templates(
+    db_session: Session = Depends(get_db_session)
+):
+    uc = TemplateUseCases(db_session=db_session)
+    response = uc.list_templates()
+    return response

@@ -5,10 +5,8 @@ from app.main import app
 
 client = TestClient(app)
 
-def test_add_category_route(db_session, authenticated_token):
-    token = authenticated_token
-
-    client.headers = token
+def test_add_template_route(db_session, authenticated_token):
+    client.headers = authenticated_token
 
     body = {
         "id": "18XRdOWpOcoCebJhOOpZYGb733-BfIei_N-f58QhLQms",
@@ -25,3 +23,18 @@ def test_add_category_route(db_session, authenticated_token):
     
     db_session.delete(templates[0])
     db_session.commit()
+
+def test_list_templates_route(templates_on_db, authenticated_token):
+    client.headers = authenticated_token
+
+    response = client.get('/template/list')
+
+    assert response.status_code == status.HTTP_200_OK
+
+    templates = response.json()
+
+    assert len(templates) == 4
+    assert templates[0] == {
+        "id": templates_on_db[0].id,
+        "description": templates_on_db[0].description
+    }
