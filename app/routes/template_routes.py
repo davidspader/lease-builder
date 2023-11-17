@@ -24,3 +24,13 @@ def list_templates(
     uc = TemplateUseCases(db_session=db_session)
     response = uc.list_templates()
     return response
+
+@router.delete('/delete/{id}', description='Delete template')
+def delete_templates(
+    id: str,
+    db_session: Session = Depends(get_db_session)
+):
+    uc = TemplateUseCases(db_session=db_session)
+    uc.delete_template(id=id)
+
+    return Response(status_code=status.HTTP_200_OK)

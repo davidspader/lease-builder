@@ -38,3 +38,25 @@ def test_list_templates_route(templates_on_db, authenticated_token):
         "id": templates_on_db[0].id,
         "description": templates_on_db[0].description
     }
+
+def test_delete_template_route(db_session, authenticated_token):
+    client.headers = authenticated_token
+    
+    template = TemplateModel(id='18XRdOWpOcoCebJhOOpZYGb733-BfIei_N-f58QhLQms', description='template description 1')
+    db_session.add(template)
+    db_session.commit()
+
+    response = client.delete(f'/template/delete/{template.id}')
+
+    assert response.status_code == status.HTTP_200_OK
+
+    templates = db_session.query(TemplateModel).all()
+
+    assert len(templates) == 0
+
+def test_delete_template_route_without_id(authenticated_token):
+    client.headers = authenticated_token
+
+    response = client.delete(f'/category/delete')
+
+    assert response.status_code == status.HTTP_404_NOT_FOUND
