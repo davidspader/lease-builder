@@ -36,6 +36,12 @@ Run **alembic** migrations
 docker-compose run app sh -c "alembic upgrade head"
 ```
 
+Run tests
+
+```shell
+docker-compose run app sh -c "pytest"
+```
+
 - The application will run at: **http://localhost:8000**
 - You can see the API documentation at: **http://localhost:8000/docs**
 - The PGAdmin will run at: **http://localhost:5050**
