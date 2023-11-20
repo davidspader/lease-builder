@@ -1,6 +1,6 @@
 from app.schemas.base import CustomBaseModel
 
-class Document_info(CustomBaseModel):
+class Document(CustomBaseModel):
     template_id: str
     name: str
     rg: str
